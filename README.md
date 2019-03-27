@@ -1,9 +1,5 @@
 # Checkout
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/checkout`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -71,7 +67,7 @@ Checkout::Wirecard::Auth.new(:production)
 ```
 
 #### Webhook
-Wirecard return the update events by sending a post request for a url you can set
+Wirecard return the update events by sending a post request for a url you can set<br>
 After configuring the keys and webhook url, you can easily setup the webhook with the default events (ORDER.* and Payment.*)
 ```ruby
 auth = Checkout::Wirecard::Auth.new(:production)
@@ -179,8 +175,18 @@ payment_hash = {
 This method will create the object for each level in the hash and validate the data<br>
 After you can call the method
 ```ruby
- gateway.pay_with_hash order_hash, payment_hash
+auth = Checkout::Wirecard::Auth.new(:production)
+gateway = Checkout::Wirecard::Api.new(auth)
+response = gateway.pay_with_hash order_hash, payment_hash
 ```
+After creation, the following response will return, in case of success
+```ruby
+{
+  order: wirecard_order,
+  payment: wirecard_payment
+}
+```
+You can get the data of wirecard with this response
 
 ### Creating order and payment with resources objects
 One way to create a order and payment is by instance of objects called Resources
@@ -285,7 +291,6 @@ auth = Checkout::Wirecard::Auth.new(:production)
 gateway = Checkout::Wirecard::Api.new(auth)
 wirecard_order = gateway.create_order order
 ```
-
 If some data is not valid, the exception ```Checkout::Exceptions::DataValidationError ``` will raise <br>
 If some auth is not valid, the exception ```Checkout::Exceptions::AuthNotFounded ``` will raise
 
@@ -293,6 +298,26 @@ After you need to save the id of wirecard in order object
 ```ruby
 order.add_gateway_id wirecard_order[:id]
 ```
+
+#### Sending Payment
+After getting gateway id, you now can create a payment calling create_payment method
+```ruby
+wirecard_payment = gateway.create_payment order.gateway_id, payment
+```
+
+#### Sending order and payment
+You also can send both at once, calling pay method
+ ```ruby
+wirecard_response = gateway.pay(order, payment)
+```
+After creation, the following response will return, in case of success
+```ruby
+{
+  order: wirecard_order,
+  payment: wirecard_payment
+}
+```
+You can get the data of wirecard with this response
 
 ## Development
 
@@ -302,4 +327,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rails-checkout. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ateliware/rails-checkout. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
