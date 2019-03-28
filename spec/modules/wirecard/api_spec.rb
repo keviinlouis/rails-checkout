@@ -2,7 +2,7 @@ require 'rspec'
 require 'pry'
 RSpec.describe Checkout::Wirecard::Api do
   before(:each) do
-    @gateway = Checkout::Wirecard::Api.new(Checkout::Wirecard::Auth.new :development)
+    @gateway = Checkout::Wirecard::Api.new
 
     webhooks = @gateway.list_webhooks
 

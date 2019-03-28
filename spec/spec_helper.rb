@@ -16,7 +16,8 @@ RSpec.configure do |config|
     c.wirecard = {
       key: '5PB0KRQECQDAQL3WO9J3DS5FFYJBA8DNKPTLW9YI',
       token: 'LVRVXDZ3EPTH8VXK9CZN0OBX64PF9SW5',
-      webhook_url: ''
+      webhook_url: '',
+      env: :development
     }
   end
 end

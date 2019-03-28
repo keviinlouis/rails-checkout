@@ -7,11 +7,11 @@ module Checkout
 
       WIRECARD_ENV = [:production, :development]
 
-      def initialize(env, token_oauth = nil)
+      def initialize(token_oauth = nil)
         @token = Checkout.configuration.wirecard[:token]
         @key = Checkout.configuration.wirecard[:key]
         @token_oauth = token_oauth
-        @env = env
+        @env = Checkout.configuration.wirecard[:env]
 
         validate
       end

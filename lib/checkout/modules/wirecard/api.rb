@@ -8,8 +8,8 @@ module Checkout
       PRODUCTION_URL = 'https://api.moip.com.br'
       VERSION = 'v2'
 
-      def initialize(auth)
-        @auth = auth
+      def initialize(token_oauth = nil)
+        @auth = Checkout::Wirecard::Auth.new token_oauth
         @api = Moip2::Api.new(@auth.get_client)
       end
 
@@ -117,7 +117,6 @@ module Checkout
 
       def header
         authorization = @auth.is_oauth? ? "OAuth #{@auth.get_oauth_token}" : "Basic #{@auth.get_basic_token}"
-
         {
           Authorization: authorization,
           content_type: :json

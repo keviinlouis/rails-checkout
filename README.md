@@ -37,47 +37,55 @@ Checkout.configure do |c|
     c.wirecard = {
       key: 'WIRECARD_KEY',
       token: 'WIRECARD_TOKEN',
-      webhook_url: 'WEBHOOK_URL'
+      webhook_url: 'WEBHOOK_URL',
+      env: :development
     }
 end
 ```
 
+#### Environment
+Wirecard has two environments: 
+- Sandbox (development)
+```ruby
+c.wirecard = {
+  key: 'WIRECARD_KEY',
+  token: 'WIRECARD_TOKEN',
+  webhook_url: 'WEBHOOK_URL',
+  env: :development
+}
+```
+- Production (production)
+```ruby
+c.wirecard = {
+  key: 'WIRECARD_KEY',
+  token: 'WIRECARD_TOKEN',
+  webhook_url: 'WEBHOOK_URL',
+  env: :production
+}
+```
+
 After, in your controller, you need to initialize a Wirecard Api
 ```ruby
-auth = Checkout::Wirecard::Auth.new :development
-gateway = Checkout::Wirecard::Api.new(auth)
+gateway = Checkout::Wirecard::Api.new
 ```
 
 You can also pass a oauth token like: 
 ```ruby
 oauth_token = "some_oauth_token"
-auth = Checkout::Wirecard::Auth.new(:development, oauth_token)
-gateway = Checkout::Wirecard::Api.new(auth)
+gateway = Checkout::Wirecard::Api.new(oauth_token)
 
-```
-#### Environment
-Wirecard has two environments: 
-- Sandbox (development)
-```ruby
-Checkout::Wirecard::Auth.new(:development)
-```
-- Production (production)
-```ruby
-Checkout::Wirecard::Auth.new(:production)
 ```
 
 #### Webhook
 Wirecard return the update events by sending a post request for a url you can set<br>
 After configuring the keys and webhook url, you can easily setup the webhook with the default events (ORDER.* and Payment.*)
 ```ruby
-auth = Checkout::Wirecard::Auth.new(:production)
-gateway = Checkout::Wirecard::Api.new(auth)
+gateway = Checkout::Wirecard::Api.new
 gateway.setup_webhook_base
 ```
 Or you can pass another events as you wish
 ```ruby
-auth = Checkout::Wirecard::Auth.new(:production)
-gateway = Checkout::Wirecard::Api.new(auth)
+gateway = Checkout::Wirecard::Api.new
 gateway.setup_webhook_base(["ORDER.CREATED"])
 ```
 
@@ -90,8 +98,7 @@ webhook = Checkout::Wirecard::Webhook.new(
     ['ORDER.WAITING'] #events
 )
 
-auth = Checkout::Wirecard::Auth.new(:production)
-gateway = Checkout::Wirecard::Api.new(auth)
+gateway = Checkout::Wirecard::Api.new
 gateway.create_webhook(webhook)
 ```
 
@@ -175,8 +182,7 @@ payment_hash = {
 This method will create the object for each level in the hash and validate the data<br>
 After you can call the method
 ```ruby
-auth = Checkout::Wirecard::Auth.new(:production)
-gateway = Checkout::Wirecard::Api.new(auth)
+gateway = Checkout::Wirecard::Api.new
 response = gateway.pay_with_hash order_hash, payment_hash
 ```
 After creation, the following response will return, in case of success
@@ -287,8 +293,7 @@ order = Checkout::Resource::Order.new(
 #### Sending Order
 Create the gateway api and call create order
 ```ruby
-auth = Checkout::Wirecard::Auth.new(:production)
-gateway = Checkout::Wirecard::Api.new(auth)
+gateway = Checkout::Wirecard::Api.new
 wirecard_order = gateway.create_order order
 ```
 If some data is not valid, the exception ```Checkout::Exceptions::DataValidationError ``` will raise <br>

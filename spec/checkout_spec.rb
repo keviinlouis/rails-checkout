@@ -3,7 +3,7 @@ require 'checkout'
 
 RSpec.describe Checkout do
   before(:each) do
-    @gateway = Checkout::Wirecard::Api.new(Checkout::Wirecard::Auth.new :development)
+    @gateway = Checkout::Wirecard::Api.new
   end
 
   it "has a version number" do

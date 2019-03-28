@@ -13,7 +13,7 @@ module Checkout
 
       def validate
         throw Checkout::Exception::DataValidationError(['Wirecard Webhook Event not founded']) if (EVENTS - @events).size == EVENTS.size
-        throw Checkout::Exception::DataValidationError(['Wirecard Webhook Url is required']) if @url.blank?
+        throw Checkout::Exception::DataValidationError(['Wirecard Webhook Url is required']) unless @url
       end
     end
   end
