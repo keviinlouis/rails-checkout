@@ -26,6 +26,15 @@ The methods we support today are:
 - [ ] PagSeguro
 - [ ] MercadoPago
 
+To plug and play the gem, follow the steps:
+
+1 - Install the gem <br>
+2 - Create checkout.rb in initializers<br>
+3 - Configure the keys of your gateway<br>
+4 - Check if your gateway have some additional configuration (e.g. Wirecard Webhook)<br>
+5 - Create the hash or resources objects<br>
+6 - Create your order and payment <br>
+
 ### Wirecard
 
 Create a initializer in config/initializers, (e.g. checkout.rb)
