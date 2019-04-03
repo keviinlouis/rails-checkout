@@ -36,7 +36,7 @@ To plug and play the gem, follow the steps:
 6 - Create your order and payment <br>
 
 ### Documentation for gateways
-[Wirecard](https://github.com/ateliware/rails-checkout/docs/wirecard.md)
+[Wirecard](https://github.com/ateliware/rails-checkout/blob/master/docs/wirecard.md)
 
 ### Creating order and payment with hash 
 One wat to create a order and payment is by passing two hashes to the method pay_with_hash<br>
