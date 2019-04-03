@@ -1,4 +1,4 @@
-### Wirecard
+## Wirecard
 
 ### Wirecard resources supported 
 The methods we support today are:
