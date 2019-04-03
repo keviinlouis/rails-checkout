@@ -1,5 +1,16 @@
 ### Wirecard
 
+### Wirecard resources supported 
+The methods we support today are:
+- [x] Order
+- [x] Payment Credit Card
+- [x] Payment Ticket (Boleto)
+- [x] Receivers (Split Payment)
+- [x] Webhook Config
+- [ ] Create wirecard account
+- [ ] Signature
+
+### Configuration
 Create a initializer in config/initializers, (e.g. checkout.rb)
 
 ```ruby
