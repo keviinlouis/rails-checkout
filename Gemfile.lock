@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails-checkout (0.1.0)
+    checkout (0.1.0)
       activerecord (>= 4.2, < 6.1)
       moip2
       pry
@@ -78,7 +78,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
-  rails-checkout!
+  checkout!
   rake (~> 10.0)
   rspec (~> 3.0)
 

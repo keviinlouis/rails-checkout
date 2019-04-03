@@ -8,6 +8,7 @@ module Checkout
       end
 
       def to_wirecard
+        validate_wirecard
         {
           statementDescriptor: @statement_descriptor,
           installmentCount: @installment_count,
@@ -33,6 +34,12 @@ module Checkout
           hash[:installment_count],
           funding_instrument
         )
+      end
+
+      def validate_wirecard
+        if @statement_descriptor.length > 13
+          raise Checkout::Exception::DataValidationError.new(['Statement Descriptor mus be less or equal to 13 characters'])
+        end
       end
     end
   end

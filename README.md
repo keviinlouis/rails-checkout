@@ -35,84 +35,12 @@ To plug and play the gem, follow the steps:
 5 - Create the hash or resources objects<br>
 6 - Create your order and payment <br>
 
-### Wirecard
-
-Create a initializer in config/initializers, (e.g. checkout.rb)
-
-```ruby
-require "checkout"
-
-Checkout.configure do |c|
-    c.wirecard = {
-      key: 'WIRECARD_KEY',
-      token: 'WIRECARD_TOKEN',
-      webhook_url: 'WEBHOOK_URL',
-      env: :development
-    }
-end
-```
-
-#### Environment
-Wirecard has two environments: 
-- Sandbox (development)
-```ruby
-c.wirecard = {
-  key: 'WIRECARD_KEY',
-  token: 'WIRECARD_TOKEN',
-  webhook_url: 'WEBHOOK_URL',
-  env: :development
-}
-```
-- Production (production)
-```ruby
-c.wirecard = {
-  key: 'WIRECARD_KEY',
-  token: 'WIRECARD_TOKEN',
-  webhook_url: 'WEBHOOK_URL',
-  env: :production
-}
-```
-
-After, in your controller, you need to initialize a Wirecard Api
-```ruby
-gateway = Checkout::Wirecard::Api.new
-```
-
-You can also pass a oauth token like: 
-```ruby
-oauth_token = "some_oauth_token"
-gateway = Checkout::Wirecard::Api.new(oauth_token)
-
-```
-
-#### Webhook
-Wirecard return the update events by sending a post request for a url you can set<br>
-After configuring the keys and webhook url, you can easily setup the webhook with the default events (ORDER.* and Payment.*)
-```ruby
-gateway = Checkout::Wirecard::Api.new
-gateway.setup_webhook_base
-```
-Or you can pass another events as you wish
-```ruby
-gateway = Checkout::Wirecard::Api.new
-gateway.setup_webhook_base(["ORDER.CREATED"])
-```
-
-For a list of all events, you can access https://dev.wirecard.com.br/reference#eventos
-
-You also can create a webhook with another url
-```ruby
-webhook = Checkout::Wirecard::Webhook.new(
-    'some_url', #url
-    ['ORDER.WAITING'] #events
-)
-
-gateway = Checkout::Wirecard::Api.new
-gateway.create_webhook(webhook)
-```
+### Documentation for gateways
+[Wirecard](https://github.com/ateliware/rails-checkout/docs/wirecard.md)
 
 ### Creating order and payment with hash 
 One wat to create a order and payment is by passing two hashes to the method pay_with_hash<br>
+`For description field by field, check creating order and payment with resource`
 For the order hash you can set like this:
 ```ruby
 order_hash = {
@@ -197,10 +125,12 @@ response = gateway.pay_with_hash order_hash, payment_hash
 After creation, the following response will return, in case of success
 ```ruby
 {
-  order: wirecard_order,
-  payment: wirecard_payment
+  order: object_gateway_order_response,
+  payment: object_gateway_order_response
 }
 ```
+
+To check how the response its come, check documentation of each gateway
 You can get the data of wirecard with this response
 
 ### Creating order and payment with resources objects
@@ -303,7 +233,7 @@ order = Checkout::Resource::Order.new(
 Create the gateway api and call create order
 ```ruby
 gateway = Checkout::Wirecard::Api.new
-wirecard_order = gateway.create_order order
+geteway_order_object = gateway.create_order order
 ```
 If some data is not valid, the exception ```Checkout::Exceptions::DataValidationError ``` will raise <br>
 If some auth is not valid, the exception ```Checkout::Exceptions::AuthNotFounded ``` will raise
@@ -316,22 +246,23 @@ order.add_gateway_id wirecard_order[:id]
 #### Sending Payment
 After getting gateway id, you now can create a payment calling create_payment method
 ```ruby
-wirecard_payment = gateway.create_payment order.gateway_id, payment
+geteway_payment_object = gateway.create_payment order.gateway_id, payment
 ```
 
 #### Sending order and payment
 You also can send both at once, calling pay method
  ```ruby
-wirecard_response = gateway.pay(order, payment)
+gateway_response = gateway.pay(order, payment)
 ```
 After creation, the following response will return, in case of success
 ```ruby
 {
-  order: wirecard_order,
-  payment: wirecard_payment
+  order: object_gateway_order_response,
+  payment: object_gateway_order_response
 }
 ```
-You can get the data of wirecard with this response
+
+To check how the response its come, check documentation of each gateway
 
 ## Development
 
