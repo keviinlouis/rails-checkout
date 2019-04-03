@@ -86,6 +86,8 @@ gateway.create_webhook(webhook)
 ```
 
 #### Response data from wirecard
+
+##### Order
 In Order the response will come in this structure
 ```ruby
 
@@ -213,8 +215,8 @@ RecursiveOpenStruct
         }
     }
 ```
-
-
+##### Payment
+###### Response with credit card
 In Payment with credit card the response will come in this structure
 ```ruby
 RecursiveOpenStruct 
@@ -302,26 +304,28 @@ RecursiveOpenStruct
     created_at="2019-04-03T14:02:09.833-03", 
     updated_at="2019-04-03T14:02:10.181-03"
 ```
-ticketcredit card the response will come in this structure
+
+###### Response With Ticket
+In Payment with ticket (boleto) the response will come in this structure
 ```ruby
 RecursiveOpenStruct 
     id="PAY-000000", 
-    status="IN_ANALYSIS", 
+    status="WAITING", 
     delay_capture=false, 
     amount={
-        :total=>9900, 
-        :gross=>9900, 
+        :total=>20000, 
+        :gross=>20000, 
         :fees=>0, 
         :refunds=>0, 
-        :liquid=>9900, 
+        :liquid=>20000, 
         :currency=>"BRL"
     }, 
     installment_count=1, 
-    statement_descriptor="FAEL", 
+    statement_descriptor="Some Store", 
     funding_instrument={
         :boleto=>{
             :expiration_date=>"2019-04-08", 
-            :line_code=>"00190.00009 01014.051005 00000.787176 7 72370000001000", 
+            :line_code=>"00000.00009 01014.051005 00000.787176 7 72370000001000", 
             :logo_uri=>"https://some.logo.com/some_image.jpg", 
             :instruction_lines=>{
                 :first=>"Some instruction 1", 
@@ -331,13 +335,6 @@ RecursiveOpenStruct
         }, 
         :method=>"BOLETO"
     }, 
-    acquirer_details={
-        :authorization_number=>"T00000", 
-        :tax_document=>{
-            :type=>"CNPJ", 
-            :number=>"00000000000000"
-        }
-    }, 
     fees=[
         {
             :type=>"TRANSACTION", 
@@ -346,24 +343,24 @@ RecursiveOpenStruct
     ], 
     events=[
         {
-            :type=>"PAYMENT.IN_ANALYSIS", 
-            :created_at=>"2019-04-03T14:02:10.181-03"
+            :type=>"PAYMENT.CREATED", 
+            :created_at=>"2019-04-03T16:21:31.504-03"
         }, 
         {
-            :type=>"PAYMENT.CREATED", 
-            :created_at=>"2019-04-03T14:02:09.835-03"
+            :type=>"PAYMENT.WAITING", 
+            :created_at=>"2019-04-03T16:21:31.504-03"
         }
     ], 
     receivers=[
         {
             :moip_account=>{
                 :id=>"MPA-000000", 
-                :login=>"login@email.com", 
-                :fullname=>"example full name"
+                :login=>"some@email.com.br", 
+                :fullname=>"full name"
             }, 
             :type=>"PRIMARY", 
             :amount=>{
-                :total=>9900, 
+                :total=>20000, 
                 :currency=>"BRL", 
                 :fees=>0, 
                 :refunds=>0
@@ -373,13 +370,18 @@ RecursiveOpenStruct
     ], 
     _links={
         :self=>{
-            :href=>"https://sandbox.moip.com.br/v2/payments/PAY-0000000"
+            :href=>"https://sandbox.moip.com.br/v2/payments/PAY-000000"
         }, 
         :order=>{
             :href=>"https://sandbox.moip.com.br/v2/orders/ORD-000000", 
             :title=>"ORD-000000"
+        }, 
+        :pay_boleto=>{
+            :print_href=>"https://sandbox.moip.com.br/v2/boleto/BOL-000000/print", 
+            :redirect_href=>"https://sandbox.moip.com.br/v2/boleto/BOL-000000"
         }
     }, 
-    created_at="2019-04-03T14:02:09.833-03", 
-    updated_at="2019-04-03T14:02:10.181-03"
+    created_at="2019-04-03T16:21:31.500-03", 
+    updated_at="2019-04-03T16:21:31.500-03"
+
 ```
