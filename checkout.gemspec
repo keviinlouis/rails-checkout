@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "checkout/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "rails-checkout"
+  spec.name          = "checkout"
   spec.version       = Checkout::VERSION
   spec.authors       = ["Kevin Louis"]
   spec.email         = ["kevin.santos@ateliware.com.br"]
