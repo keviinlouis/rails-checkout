@@ -53,6 +53,18 @@ module Checkout
         wirecard_payment
       end
 
+      def create_order_with_hash(order_hash)
+        order = Checkout::Resource::Order.from_hash(order_hash)
+
+        create_order order
+      end
+
+      def create_payment_with_hash(order_id, payment_hash)
+        payment = Checkout::Resource::Payment.from_hash(payment_hash)
+
+        create_payment order_id, payment
+      end
+
       def list_orders
         get 'orders'
       end
