@@ -85,9 +85,9 @@ gateway = Checkout::Wirecard::Api.new
 gateway.create_webhook(webhook)
 ```
 
-#### Response data from wirecard
+## Response data from wirecard
 
-##### Order
+### Order
 In Order the response will come in this structure
 ```ruby
 
@@ -215,8 +215,8 @@ RecursiveOpenStruct
         }
     }
 ```
-##### Payment
-###### Response with credit card
+### Payment
+#### Response with credit card
 In Payment with credit card the response will come in this structure
 ```ruby
 RecursiveOpenStruct 
@@ -305,7 +305,7 @@ RecursiveOpenStruct
     updated_at="2019-04-03T14:02:10.181-03"
 ```
 
-###### Response With Ticket
+#### Response With Ticket
 In Payment with ticket (boleto) the response will come in this structure
 ```ruby
 RecursiveOpenStruct 
