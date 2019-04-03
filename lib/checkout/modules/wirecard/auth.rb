@@ -8,6 +8,7 @@ module Checkout
       WIRECARD_ENV = [:production, :development]
 
       def initialize(token_oauth = nil)
+        raise Checkout::Exception::AuthNotFounded if Checkout.configuration.wirecard.nil?
         @token = Checkout.configuration.wirecard[:token]
         @key = Checkout.configuration.wirecard[:key]
         @token_oauth = token_oauth
@@ -49,9 +50,9 @@ module Checkout
       end
 
       def validate
-        throw Checkout::Exception::EnvironmentNotFounded unless WIRECARD_ENV.include? @env
+        raise Checkout::Exception::EnvironmentNotFounded unless WIRECARD_ENV.include? @env
 
-        throw Checkout::Exception::AuthNotFounded if (@token.nil? && @key.nil?) && @token_oauth.nil?
+        raise Checkout::Exception::AuthNotFounded if (@token.nil? && @key.nil?) && @token_oauth.nil?
       end
     end
   end
