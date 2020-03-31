@@ -159,9 +159,9 @@ module Checkout
         end
         response_hash = response.to_hash
 
-        raise Checkout::Exception::DataValidationError.new(response_hash[:errors]) unless response_hash[:errors].nil?
+        raise Checkout::Exception::DataValidationError, response_hash[:errors] unless response_hash[:errors].nil?
 
-        raise Checkout::Exception::AuthNotFounded.new if JSON.parse! response.body
+        raise Checkout::Exception::AuthNotFounded if JSON.parse! response.body
       end
     end
   end

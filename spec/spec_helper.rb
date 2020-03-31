@@ -19,5 +19,12 @@ RSpec.configure do |config|
       webhook_url: '',
       env: :development
     }
+
+    c.getnet = {
+      client_id: 'f1b76e94-d71f-431c-a0be-85c2694ba3d9',
+      client_secret: 'd778b66a-1fcb-4558-987c-7acf71041ed6',
+      env: :development,
+      delayed: false,
+    }
   end
 end

@@ -22,6 +22,13 @@ module Checkout
         }
       end
 
+      def to_getnet
+        {
+          amount: @amount.to_getnet,
+          customer: @customer.to_wirecard,
+        }
+      end
+
       def self.from_hash(hash)
         customer_hash = hash[:customer]
 
@@ -31,7 +38,7 @@ module Checkout
 
         customer = Checkout::Resource::Customer.from_hash(customer_hash)
 
-        return self.new(
+        return new(
           hash[:id],
           items,
           customer

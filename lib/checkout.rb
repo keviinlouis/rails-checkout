@@ -4,6 +4,10 @@ require 'checkout/configuration'
 require 'checkout/modules/wirecard/api'
 require 'checkout/modules/wirecard/auth'
 
+require 'checkout/modules/getnet/auth'
+require 'checkout/modules/getnet/credit_card'
+require 'checkout/modules/getnet/api'
+
 require 'checkout/resources/product'
 require 'checkout/resources/shipping_address'
 require 'checkout/resources/customer'
